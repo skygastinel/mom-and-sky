@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mom &amp; Sky: Our Travels</title>
+  <meta name="description" content="A scrapbook of the places Mom and I have explored together." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Caveat:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Nanum+Pen+Script&family=Inter:wght@800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css?v=1794721296" />
+</head>
+<body class="locked">
+
+  <!-- The painted lake. Fixed behind the intro and the letter. -->
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <!-- Softly dims the painting while the letter is open (never the letter) -->
+  <div id="veil" aria-hidden="true"></div>
+  <!-- The light orb cursor. Fixed above everything. -->
+  <canvas id="orb" aria-hidden="true"></canvas>
+
+  <!-- ============ 0. INTRO: painting + envelope ============ -->
+  <section class="intro" id="intro">
+    <h1 class="sr-only">A letter for Mom</h1>
+    <div class="env" id="env" role="button" tabindex="0" aria-label="Open the letter">
+      <div class="env-float">
+        <div class="e-back"></div>
+        <div class="e-letter"></div>
+        <div class="e-front"></div>
+        <div class="e-flap"></div>
+        <div class="e-seal"></div>
+        <div class="e-to">for Mom</div>
+        <div class="e-hint">open me</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stand-in sheet that travels between the envelope and the page (animation only) -->
+  <div class="sheet" id="sheet" aria-hidden="true"><div class="sheet-curl"></div></div>
+
+  <!-- ============ 1. THE LETTER ============ -->
+  <section class="letter-wrap" id="letter">
+    <div class="paper-wrap away">
+    <div class="paper" id="paper">
+      <button class="curl" id="curl" type="button" aria-label="Fold the letter back up">
+        <span class="curl-hint" aria-hidden="true">fold me back up</span>
+      </button>
+      <!-- Each paragraph goes in its own <p>. -->
+      <div class="letter-body">
+        <p class="letter-date">October 2026<br>Happy Birthday Mom</p>
+        <p>Dear Mom,</p>
+        <p>If “home is where Mom is,” then that must mean I have a home in every country. Beyond being my mom, you are also my inspiration. There’s not a year I look back on in my life where you and I were not going to some random country or attending some crazy event you got invited to “through a friend.” As I myself enter adulthood, I realize more and more each day not only how similar you and I are, but the immense gratitude I have for how you have raised me. I hope I become more like you when I’m older.</p>
+        <p>While most parents would hire a babysitter or leave their kids with a relative, for as long as I can remember, you’ve always just taken me with you. Even in rooms full of stuck-up corporate adults, you would shamelessly bring me alongside. While that was my normal growing up, I realize now that this was not the case for everyone. As a kid, there were times I remember crying in stubbornness over not wanting to attend the tech events you dragged me to. I thought, I just want to spend time with you not awkwardly stand next to you while you talk to tech bros. I often thought your friends were weird, and I couldn’t understand how you were SO open minded to doing random things. Unlike anyone else I knew, you were often TOO open minded. But now I see that your mentality of openness and excitement to experience the world is an invaluable trait I have to thank for so much of my own life’s experiences. I hope to be as open minded as you one day.</p>
+        <p>In wanting to wish you a Happy Birthday, I wanted to start by thanking you for the many travels we have gone on together and the many (unconventional) rooms you have put me in. As you should well know by now, you’ve sparked inside me this immense desire to go out and experience everything the world has to offer. But I’m grateful to say I’ve already experienced a lot of it thanks to you.</p>
+        <p>More than that, I want to thank you for not just being my mom, but for being my all time mentor, supporter, and motivation. Whenever I ask myself why I’m doing something, I realize that the answer that never fails to change is because of wanting to make you proud.</p>
+        <p>My goal in making this website is just to capture a few of the incredible moments we’ve shared together as a small token of my gratitude.</p>
+        <p>Love you to Oslo, to Chongqing, to the Moon, and to infinity and beyond.</p>
+      </div>
+
+      <p class="signoff">Love,</p>
+      <p class="signature">Sky</p>
+    </div>
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <span>keep scrolling</span>
+      <span class="arrow">↓</span>
+    </div>
+  </section>
+
+  <!-- ============ 2. THE COVER (opens as you scroll) ============ -->
+  <section class="cover-stage" id="cover-stage">
+    <div class="cover-sticky">
+      <div class="book">
+        <div class="book-inside">
+          <p class="inside-text">let's go back…</p>
+        </div>
+        <div class="book-cover" id="book-cover">
+          <div class="cover-back"></div>
+          <div class="cover-front">
+          <figure class="cover-photo"><img src="photos/cover/cover.jpg" alt="Mom and Sky among the aspens, October 2013"></figure>
+          <div class="cover-label">
+            <p class="cover-small">the travels of</p>
+            <h2 class="cover-title">Mom &amp; Sky</h2>
+            <p class="cover-years" id="cover-years"></p>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. THE SCRAPBOOK (built from trips.js) ============ -->
+  <main class="scrapbook" id="scrapbook"></main>
+
+  <footer class="end">
+    <p class="end-note">…to be continued</p>
+    <p class="end-small">Mom &amp; Sky</p>
+    <figure class="end-photo reveal">
+      <img src="photos/end/portrait.jpg" width="480" height="360" alt="A hand-drawn portrait of Mom and Sky in a wooden frame" loading="lazy" decoding="async">
+    </figure>
+  </footer>
+
+  <!-- ============ 4. BACK TO THE BEGINNING: the photo behind the painting, fading into it ============ -->
+  <section class="loop" id="loop" aria-label="Back to the beginning">
+    <div class="loop-stage">
+      <img class="loop-photo" id="loop-photo" src="photos/end/lake.jpg" width="2400" height="1800" alt="The lake with black swans and a willow that the opening painting is based on" loading="lazy" decoding="async">
+      <p class="loop-hint" id="loop-hint" aria-hidden="true">
+        <span>Keep scrolling to begin again</span>
+        <span class="loop-bar"><i id="loop-fill"></i></span>
+      </p>
+    </div>
+  </section>
+
+  <script src="trips.js?v=1794721296"></script>
+  <script src="scene.js?v=1794721296"></script>
+  <script src="orb.js?v=1794721296"></script>
+  <script src="scrapbook.js?v=1794721296"></script>
+  <script src="script.js?v=1794721296"></script>
+</body>
+</html>
