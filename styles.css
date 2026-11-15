@@ -195,6 +195,7 @@ body:not(.opened) .scroll-hint { opacity: 0 !important; }
   min-height: 100vh;
   padding: var(--s-9) var(--s-5) var(--s-10);
   background: transparent;           /* the painting shows around the paper */
+  overflow-x: clip;                  /* the tilted page is tall, so its foot drifts sideways: keep that from widening the site on phones */
 }
 .paper-wrap {
   max-width: var(--w-letter);
